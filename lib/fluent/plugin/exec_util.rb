@@ -52,7 +52,9 @@ module Fluent
       def call(io)
         y = Yajl::Parser.new
         y.on_parse_complete = @on_message
-        y.parse(io)
+        io.each_line do |line|
+          y.parse(line)
+        end
       end
     end
 
